@@ -3,7 +3,7 @@ import subprocess
 import webbrowser
 import time
 
-folder_path = "/back"
+folder_path = "../back"
 os.chdir(folder_path)
 run_process = subprocess.Popen(["go", "run", "main.go"])
 time.sleep(2)

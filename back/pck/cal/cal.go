@@ -71,14 +71,11 @@ func(s Equation)Print(){//显式打印出来
     fmt.Println()
 }
 
-//利用高斯消元法求解方程，定义无解或者无穷解为错误类型
-//后期可以优化无穷解的表示形式并且显式地传入前端
-//errors.New("error info")传入错误的描述信息
 func Gauss(s Equation)(x Vec,err error){
     n:=s.Value_num
     x.Init(n);
 
-    for i:=0;i<n;i++{
+    for i:=0;i<n;i++{//交换行列
         head:=i
         for k:=i+1;k<n;k++{
             if math.Abs(s.Coefficient_Matrix[k][i]) > math.Abs(s.Coefficient_Matrix[head][i]) {
@@ -92,7 +89,7 @@ func Gauss(s Equation)(x Vec,err error){
             continue;
         }
 
-        for k:=i+1;k<n;k++{
+        for k:=i+1;k<n;k++{//高斯消元
             factor:=s.Coefficient_Matrix[k][i]/s.Coefficient_Matrix[i][i]
             s.Expansion[k]-=factor*s.Expansion[i]
             for j:=i;j<n;j++ {
@@ -101,7 +98,7 @@ func Gauss(s Equation)(x Vec,err error){
         }
     }
 
-    for i:=n-1;i>=0;i--{
+    for i:=n-1;i>=0;i--{//化成对角矩阵
         if s.Coefficient_Matrix[i][i]!=0{
             x.Value[i]=s.Expansion[i]/s.Coefficient_Matrix[i][i]
             for j:=i;j>=0;j--{
@@ -122,7 +119,7 @@ func Gauss(s Equation)(x Vec,err error){
     return x,nil
 }
 
-func Output(ans Vec,ans_exit error)(x string){
+func Output(ans Vec,ans_exit error)(x string){//传回前端的字符串
     if ans_exit==nil{
         x="讷讷～你要的解向量： "
         for i:=0;i<ans.Len;i++{

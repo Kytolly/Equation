@@ -64,7 +64,7 @@
                     document.getElementById("result").innerHTML = result;
                 },
                 error: function (error) {
-                    console.error("错误信息：", textStatus, errorThrown);
+                    console.error("ajax request fail:", textStatus, errorThrown);
                     document.getElementById("result").innerHTML = "请求失败了～";
                 }
             });
