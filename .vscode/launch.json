@@ -1,0 +1,38 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch file",
+			"type": "go",
+			"request": "launch",
+			"mode": "auto",
+			"program": "${file}",
+			"console": "integratedTerminal"
+		},
+		{
+			"name": "Launch test function",
+			"type": "go",
+			"request": "launch",
+			"mode": "test",
+			"program": "${workspaceFolder}",
+			"args": [
+				"-test.run",
+				"MyTestFunction"
+			]
+		},
+		{
+			"name": "Launch test package",
+			"type": "go",
+			"request": "launch",
+			"mode": "test",
+			"program": "${workspaceFolder}"
+		},
+		{
+			"name": "Launch executable",
+			"type": "go",
+			"request": "launch",
+			"mode": "exec",
+			"program": "absolute-path-to-the-executable"
+		}
+	]
+}

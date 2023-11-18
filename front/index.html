@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>高斯消元法计算器</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function createInputFields() {
             var n = parseInt(document.getElementById("unknowns").value);
@@ -15,9 +16,15 @@
 
             var inputFields = "";
             for (var i = 1; i <= n; i++) {
-                for (var j = 1; j <= n + 1; j++) {
-                    inputFields += "x" + i + j + ": <input type='text' class='matrix-element' id='input-x" + i + j + "'> ";
+                for (var j = 1; j <= n ; j++) {
+                    inputFields+="<input type='text' style='width:80px' maxlength='10' class='matrix-element' id='input-x" + i + j + "'>" + "x"+j;
+                    // inputFields += "x" + i + j + ": <input type='text' class='matrix-element' id='input-x" + i + j + "'> ";
+                    if(j!=n) {
+                        inputFields+="+";
+                    }
                 }
+                var j=n+1;
+                inputFields+= "=" + "<input type='text' style='width:80px' maxlength='10' class='matrix-element' id = 'input-x" + i + j + "'>";
                 inputFields += "<br>";
             }
             document.getElementById("inputFields").innerHTML = inputFields;
@@ -36,21 +43,28 @@
                     var value = parseFloat(document.getElementById("input-x" + i + j).value);
                     row.push(value);
                 }
+                var j=n+1;
                 var value = parseFloat(document.getElementById("input-x" + i + j).value);
-                row.push(expansion);
+                expansion.push(value);
                 matrix.push(row);
             }
+
+
+            console.log(JSON.stringify({n:n,matrix: matrix, expansion: expansion}));
+
 
             $.ajax({
                 type: "POST",
                 url: "http://localhost:8080",  
-                data: "json",
+                data: JSON.stringify({n:n,matrix: matrix, expansion: expansion}),
+                contentType: "application/json",
                 dataType: "json",
                 success: function (response) {
                     var result = response;  // 提取返回的结果
                     document.getElementById("result").innerHTML = result;
                 },
                 error: function (error) {
+                    console.error("错误信息：", textStatus, errorThrown);
                     document.getElementById("result").innerHTML = "请求失败了～";
                 }
             });

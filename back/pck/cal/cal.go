@@ -16,44 +16,57 @@ type Vec struct {
 }
 
 type Equation struct {
-    Value_num int //方程维数
-    Coefficient_Matrix [][]float64 `json:"martrix"` //系数矩阵
-    Expansion []float64  `json:"expansion"`
+    Value_num int `json:"n"`   //方程维数
+    Coefficient_Matrix [][]float64 `json:"matrix"` //系数矩阵
+    Expansion []float64  `json:"expansion"`//拓展向量
 }
 
 //定义方法
 
-func(s Equation) Init(n int){//初始化
+func(s *Equation) Init(n int){//初始化
     s.Value_num=n
     s.Coefficient_Matrix =make([][]float64,s.Value_num)
     for i:=0;i<s.Value_num;i++ {
         s.Coefficient_Matrix[i]= make([]float64,s.Value_num)
+        for j:=0;j<s.Value_num;j++{
+            s.Coefficient_Matrix[i][j]=0
+        }
+
     }
     s.Expansion =make([]float64,s.Value_num)
+    for j:=0;j<s.Value_num;j++{
+        s.Expansion[j]=0
+    }
 }
 
-func(a Vec) Init(n int)(*Vec){
+func(a *Vec) Init(n int){
     a.Len =n
-    a.Value =make([]float64,a.Len,0)
-    return &a
+    a.Value =make([]float64,a.Len)
+    for j:=0;j<n;j++{
+        a.Value[j]=0
+    }
 }
 
-
+func(b Vec)Print(){
+    fmt.Printf("向量的维数：%v\n",b.Len)
+    fmt.Printf("向量的分量为\n")
+    for i:=0;i<b.Len;i++{
+        fmt.Printf("%14.6v",b.Value[i])
+    }
+    fmt.Println()
+}
 func(s Equation)Print(){//显式打印出来
     fmt.Printf("方程的维数：%v\n",s.Value_num)
     fmt.Printf("方程的系数矩阵为：\n")
     for i:=0;i<s.Value_num;i++ {
         for j:=0;j<s.Value_num;j++{
-            fmt.Printf("%14.6v",s.Coefficient_Matrix[i][j]);
+            fmt.Printf("%4.6v",s.Coefficient_Matrix[i][j])
         }
         fmt.Println()
     }
-}
- func(b Vec)Print(){
-    fmt.Printf("向量的维数：%v\n",b.Len)
-    fmt.Printf("向量的分量为\n")
-    for i:=0;i<b.Len;i++{
-        fmt.Printf("%14.6v",b.Value[i])
+    fmt.Printf("方程的拓展向量为：\n")
+    for i:=0;i<s.Value_num;i++ {
+        fmt.Printf("%4.6v",s.Expansion[i])
     }
     fmt.Println()
 }
@@ -63,7 +76,8 @@ func(s Equation)Print(){//显式打印出来
 //errors.New("error info")传入错误的描述信息
 func Gauss(s Equation)(x Vec,err error){
     n:=s.Value_num
-    x.Len=n
+    x.Init(n);
+
     for i:=0;i<n;i++{
         head:=i
         for k:=i+1;k<n;k++{

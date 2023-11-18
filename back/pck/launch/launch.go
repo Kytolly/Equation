@@ -15,47 +15,120 @@ func dataHandler(w http.ResponseWriter, r *http.Request) {
         Mat cal.Equation
         ans cal.Vec
         ans_exit error
-        //ans_str cal.Answer
         ans_str string
         ans_json []byte
     )
 
-	if r.Method != "POST" {
-		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-		return
-	}
+    switch r.Method {
+        case "GET":
+            if r.URL.Path == "/" {
+                http.ServeFile(w, r, "../front/index.html")
+            } else {
+                http.NotFound(w, r)
+            }
+            fmt.Println("Received a GET request")
 
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		http.Error(w, "Error reading request body", http.StatusInternalServerError)
-		return
-	}
+        case "POST":
+            fmt.Println("Received a POST request")
+            
+            body, err := ioutil.ReadAll(r.Body)
+            if err != nil {
+                fmt.Println("Error reading request body:", err)
+                http.Error(w, "Error reading request body", http.StatusInternalServerError)
+                return
+            }
+            fmt.Println(string(body))
 
-	err = json.Unmarshal(body, &Mat)
-	if err != nil {
-		http.Error(w, "Error parsing JSON data", http.StatusBadRequest)
-		return
-	}
+            err = json.Unmarshal(body, &Mat)
+            if err != nil {
+                http.Error(w, "Error parsing JSON data", http.StatusBadRequest)
+                return
+            }
+            fmt.Println("Successfully parsed JSON data")
 
-    ans,ans_exit= cal.Gauss(Mat)
-    ans_str=cal.Output(ans,ans_exit)
+            //Mat.Init(Mat.Value_num)
+            Mat.Print()
+            ans,ans_exit= cal.Gauss(Mat)
+            ans_str=cal.Output(ans,ans_exit)
+            fmt.Println(ans_str)
 
-	ans_json, err = json.Marshal(ans_str)
-	if err != nil {
-		http.Error(w, "Error encoding result to JSON", http.StatusInternalServerError)
-		return
-	}
+            ans_json, err = json.Marshal(ans_str)
+            if err != nil {
+                http.Error(w, "Error encoding result to JSON", http.StatusInternalServerError)
+                return
+            }
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(ans_json)
+            w.Header().Set("Content-Type", "application/json")
+            w.Write(ans_json)
+
+        default:
+            http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+    }
 }
+
+// func dataHandler(w http.ResponseWriter, r *http.Request) {
+//     var (
+//         Mat cal.Equation
+//         ans cal.Vec
+//         ans_exit error
+//         //ans_str cal.Answer
+//         ans_str string
+//         ans_json []byte
+//     )
+    
+//     if r.URL.Path == "/" {
+//         http.ServeFile(w, r, "../front/index.html")
+//     } else {
+//         http.NotFound(w, r)
+//     }
+//     fmt.Println("Received a request")
+
+
+// 	if r.Method != "POST" {
+// 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+// 		return
+// 	}
+//     fmt.Println("Received a POST request")
+
+// 	body, err := ioutil.ReadAll(r.Body)
+// 	if err != nil {
+//         fmt.Println("Error reading request body:", err)
+// 		http.Error(w, "Error reading request body", http.StatusInternalServerError)
+// 		return
+// 	}
+//     fmt.Println(string(body))
+
+// 	err = json.Unmarshal(body, &Mat)
+// 	if err != nil {
+// 		http.Error(w, "Error parsing JSON data", http.StatusBadRequest)
+// 		return
+// 	}
+//     fmt.Println("Successfully parsed JSON data")
+
+//     Mat.Init(Mat.Value_num)
+//     Mat.Print()
+//     ans,ans_exit= cal.Gauss(Mat)
+//     ans_str=cal.Output(ans,ans_exit)
+//     fmt.Println(ans_str)
+
+// 	ans_json, err = json.Marshal(ans_str)
+// 	if err != nil {
+// 		http.Error(w, "Error encoding result to JSON", http.StatusInternalServerError)
+// 		return
+// 	}
+
+// 	w.Header().Set("Content-Type", "application/json")
+// 	w.Write(ans_json)
+// }
 
 
 //8080端口启动服务器
 func Server(){
+    fs := http.FileServer(http.Dir("../front"))
+	http.Handle("/front/", http.StripPrefix("/front", fs))
     http.HandleFunc("/", dataHandler)
     fmt.Println("服务器即将开启，访问地址 http://localhost:8080")
-	err:=http.ListenAndServe(":8000", nil)
+	err:=http.ListenAndServe(":8080", nil)
     if err != nil {
         //打印错误并且退出应用程序
         log.Fatal("http.ListenAndServe() error: ", err.Error())
