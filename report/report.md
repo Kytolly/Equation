@@ -26,17 +26,17 @@
 
 本项目的文件关系可以用如下树状图表示：
 ```txt
-./
-├── back             后端
-│   ├── go.mod       go.mod   
-│   ├── main.go      运行封装的函数（Server,Debug）
-│   └── pck          用到的包
-│       ├── cal      计算模块和数据结构定义模块
+.
+├── back
+│   ├── go.mod
+│   ├── main.go
+│   └── pck
+│       ├── cal
 │       │   └── cal.go
 │       ├── launch
-│       │   ├── Debug.go  测试cal.go
-│       │   └── launch.go  启动服务程序
-│       └── websocket  实际上并未用到
+│       │   ├── Debug.go
+│       │   └── launch.go
+│       └── websocket
 │           ├── client.go
 │           ├── dial.go
 │           ├── dial_test.go
@@ -48,81 +48,21 @@
 │           ├── websocket.go
 │           └── websocket_test.go
 ├── front
-│   └── index.html  前端传输文件
-├── README.md       README
-├── release         发行版，适合多操作系统
-│   ├── build
-│   │   └── run
-│   │       ├── Analysis-00.toc
-│   │       ├── base_library.zip
-│   │       ├── COLLECT-00.toc
-│   │       ├── EXE-00.toc
-│   │       ├── localpycs
-│   │       │   ├── pyimod01_archive.pyc
-│   │       │   ├── pyimod02_importers.pyc
-│   │       │   ├── pyimod03_ctypes.pyc
-│   │       │   └── struct.pyc
-│   │       ├── PKG-00.toc
-│   │       ├── PYZ-00.pyz
-│   │       ├── PYZ-00.toc
-│   │       ├── run
-│   │       ├── run.pkg
-│   │       ├── warn-run.txt
-│   │       └── xref-run.html
-│   ├── dist
-│   │   └── run
-│   │       ├── _internal
-│   │       │   ├── base_library.zip
-│   │       │   ├── libcrypto.so.1.1
-│   │       │   ├── lib-dynload
-│   │       │   │   ├── array.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── binascii.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _bisect.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _blake2.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _bz2.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _codecs_cn.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _codecs_hk.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _codecs_iso2022.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _codecs_jp.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _codecs_kr.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _codecs_tw.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _contextvars.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _csv.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _datetime.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _decimal.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── grp.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _hashlib.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _heapq.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _lzma.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── math.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _md5.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _multibytecodec.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _pickle.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _posixsubprocess.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _random.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── resource.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── select.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _sha1.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _sha256.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _sha3.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _sha512.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _socket.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _statistics.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── _struct.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   ├── unicodedata.cpython-39-x86_64-linux-gnu.so
-│   │       │   │   └── zlib.cpython-39-x86_64-linux-gnu.so
-│   │       │   ├── liblzma.so.5
-│   │       │   ├── libpython3.9.so.1.0
-│   │       │   └── libz.so.1
-│   │       └── run
-│   ├── GaussCalculator_ubuntu20.04_version1.0
+│   ├── img
+│   │   └── background.jpg
+│   ├── index.html
+│   ├── indexINdex.html
+│   ├── script.js
+│   └── style.css
+├── README.md
+├── release
+│   ├── GaussEquationCalculator
 │   ├── run.bat
-│   ├── run.py
-│   └── run.spec
+│   └── run.py
 └── report
     └── report.md
 
-15 directories, 79 files
+9 directories, 25 files
 
 ```
 
@@ -203,16 +143,18 @@
 
 
 下面是程序运行的运行环境
->对于linux平台，在/release下打开终端，输入`./GaussCaculator_ubuntu20.04_version1.0`,进入`http://localhost:8080`即可启动运行程序;
+>对于linux平台，在/release下打开终端，输入`./GaussEquationCaculator_Ubuntu22.04`,进入`http://localhost:8080`即可启动运行程序;
 
 >对于windows11,点击`run.bat`即可启动程序；
 
->通用办法：在/release/dist目录下寻找适合操作系统的可执行文件，这是基于pyinstaller生成，运行/release下的`run.py`
+>通用办法：终端输入`python run.py`
 
 经过测试，即便挂着代理服务应该也能访问，但防火墙需要关掉；
 
 以下是项目的运行效果截图：
-
+![success](success.png)
+![nosolution](nosolution.png)
+![infinite](infinite.png)
 ## 五、总体评价与未来展望
 总体评价：
 
@@ -224,6 +166,6 @@
 对于项目本身的展望：
 
 参考CASIO计算器上对联立方程的功能实现
-* 前后通信上，对于方程有无穷解的情况能否进一步优化，显式表达出来；
+* 前后通信上，对于方程有无穷解的情况能否进一步优化，显式地将解系表达出来；
 * 算法上，组合一个网页计算器，对于前端输入的并不是特定的数而是计算式组成的字符串，能否计算出来并且正常输入到后端，同时进行严格的输入检查；
 * 前端上，对于前端页面能否进一步美化，能否实现多个URL跳转；

@@ -31,7 +31,6 @@ func(s *Equation) Init(n int){//初始化
         for j:=0;j<s.Value_num;j++{
             s.Coefficient_Matrix[i][j]=0
         }
-
     }
     s.Expansion =make([]float64,s.Value_num)
     for j:=0;j<s.Value_num;j++{
@@ -121,10 +120,23 @@ func Gauss(s Equation)(x Vec,err error){
 
 func Output(ans Vec,ans_exit error)(x string){//传回前端的字符串
     if ans_exit==nil{
-        x="讷讷～你要的解向量： "
+        x="讷讷～好好地收下我的解哦:"
+        x+="("
         for i:=0;i<ans.Len;i++{
-            x+=fmt.Sprintf("%.2f",ans.Value[i])+" "
+            x+="x"
+            x+=fmt.Sprintf("%d",i+1)
+            if i!=ans.Len-1 {
+                x+=","
+            }
         }
+        x+=")=("
+        for i:=0;i<ans.Len;i++{
+            x+=fmt.Sprintf("%.2f",ans.Value[i])
+            if i!=ans.Len-1{
+                x+=","
+            }
+        }
+        x+=")"
     }else if ans_exit.Error()=="方程有无数个解"{
         x="残念～方程有无数个解呢！"
     }else if ans_exit.Error()=="方程无解"{

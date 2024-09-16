@@ -1,0 +1,114 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    height: 100vh;
+    position: relative;
+    overflow: hidden; 
+}
+
+body::after {
+    content: "";
+    background-image: url('./img/background.jpg');
+    background-size: cover;  
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    margin: auto;
+    width: 50%;
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(234, 177, 234, 0.2);
+    border-radius: 10px;
+    user-select: none;
+    overflow: hidden;
+    box-shadow: 5px 5px 5px rgba(95, 93, 93, 0.7);
+}
+
+.hint {
+    text-align: left;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+h1,
+p,
+button,
+.hint h2 {
+  color:rgba(193, 81, 221, 0.9);
+}
+
+input[type="number"] {
+    background-color: rgba(243, 236, 243, 0.5); /* 半透明背景 */
+    border-radius: 10px; /* 圆角化输入框 */
+    padding: 5px 5px; /* 首个值是上下的空白区域大小，第二个值是左右空白区域大小 */
+    font-size: 16px;    
+}
+
+button {
+    background-color: rgba(231, 218, 231, 0.5); /* 半透明黑色背景 */
+    border-radius: 10px; /* 圆角化输入框 */
+    padding: 5px 5px; /* 首个值是上下的空白区域大小，第二个值是左右空白区域大小 */
+    font-size: 16px;
+}
+.matrix-element {
+    background-color: rgba(231, 218, 231, 0.5); /* 半透明黑色背景 */
+    border-radius: 10px; /* 圆角化输入框 */
+    padding: 5px 5px; /* 首个值是上下的空白区域大小，第二个值是左右空白区域大小 */
+    font-size: 16px;
+}
+.input-size {
+    width: 80px;
+    background-color: rgba(231, 218, 231, 0.5); /* 半透明黑色背景 */
+    border-radius: 10px; /* 圆角化输入框 */
+}
+.equation-text {
+  font-size: 20px; /* 设置文字大小 */
+}
+
+.github-corner:hover .octo-arm {
+    animation: octocat-wave 560ms ease-in-out
+}
+
+@keyframes octocat-wave {
+
+    0%,
+    100% {
+        transform: rotate(0)
+    }
+
+    20%,
+    60% {
+        transform: rotate(-25deg)
+    }
+
+    40%,
+    80% {
+        transform: rotate(10deg)
+    }
+}
+
+@media (max-width:500px) {
+    .github-corner:hover .octo-arm {
+        animation: none
+    }
+
+    .github-corner .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+    }
+}

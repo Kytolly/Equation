@@ -20,8 +20,16 @@ func dataHandler(w http.ResponseWriter, r *http.Request) {
 
     switch r.Method {
         case "GET":
-            if r.URL.Path == "/" {//获取前端页面front
+            if r.URL.Path == "/front" { //获取前端页面front
+                http.ServeFile(w, r, "../front")
+            } else if r.URL.Path == "/script.js" { // 获取js文件
+                http.ServeFile(w, r, "../front/script.js")
+            } else if r.URL.Path == "/index.html" { // 获取html文件
                 http.ServeFile(w, r, "../front/index.html")
+            } else if r.URL.Path == "/style.css" { // 获取CSS文件
+                http.ServeFile(w, r, "../front/style.css")
+            } else if r.URL.Path == "/background.jpg" { // 获取图片文件
+                http.ServeFile(w, r, "../front/img/background.jpg")
             } else {
                 http.NotFound(w, r)
             }
@@ -69,8 +77,8 @@ func dataHandler(w http.ResponseWriter, r *http.Request) {
 func Server(){
     fs := http.FileServer(http.Dir("../front"))
 	http.Handle("/front/", http.StripPrefix("/front", fs))
-    http.HandleFunc("/", dataHandler)
-    fmt.Println("The service is going to launch: http://localhost:8080")
+    http.HandleFunc("/front", dataHandler)
+    fmt.Println("The service is going to launch: http://localhost:8080/front")
 	err:=http.ListenAndServe(":8080", nil)
     if err != nil {
         //打印错误并且退出应用程序
